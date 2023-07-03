@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities{
+  main {
+    @apply w-full float-left overflow-hidden;
+    font-family: "Hind", sans-serif;
+  }
+}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -24,4 +30,163 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+/* MAPA */
+.box-mapa {
+  @apply relative z-[1] float-left pl-[15px] pr-0 pt-5 pb-0;
+}
+#map {
+  @apply hidden table float-left mx-auto my-0 scale-[1.2] scale-100;
+}
+#map .state {
+  @apply cursor-pointer;
+}
+#map .state .shape {
+  @apply cursor-pointer;
+  -width: 0;
+}
+#map .state .label_icon_state {
+  @apply fill-black text-[11px] leading-3 font-[normal];
+  font-family: Arial;
+}
+#map .state .label_state {
+  @apply hidden text-sm leading-4 font-[bold];
+  font-family: Arial;
+}
+#map .model-davi .state:hover .label_state {
+  @apply block fill-black;
+}
+#map .model-davi .state .shape {
+  @apply fill-[#ddd] transition-all duration-[0.3s] ease-[ease-in-out];
+}
+#map .model-davi .state:hover .shape {
+  @apply fill-[#03e55a] fill-[#03e55a];
+}
+#map .model-davi .state .icon_state {
+  @apply fill-[#03e55a];
+}
+#map .model-davi .state:hover .icon_state {
+  @apply fill-[#03e55a];
+}
+#map .model-davi .state .icon_state + .label_icon_state {
+  @apply fill-black;
+}
+#map .model-davi .state .label_icon_state {
+  @apply fill-[#666];
+}
+#map .model-davi .state:hover .label_icon_state {
+  @apply fill-black;
+}
+#map .model-davi .state .label_state {
+  @apply fill-[#666] hidden;
+}
+#map .model-davi .state .shape {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.parca {
+  @apply relative float-left pl-[15%] pr-0 py-0;
+}
+.parca select {
+  @apply hidden w-[230px] border h-10 mx-auto my-0 p-[9px] rounded-none border-solid border-[#999];
+}
+.parca .estado {
+  @apply transition-all duration-[0.3s] ease-[ease-in-out] border absolute opacity-0 visible min-w-[230px] table shadow-[0_1px_80px_0_rgba(0,0,0,0.3)] ml-20 mr-0 mt-[45px] mt-[57px] mb-0 p-2.5 rounded-[5px] border-solid border-[#ddd] inset-x-0;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.parca .estado h3 {
+  @apply block bg-[#03e55a] uppercase text-black mt-0 mb-5 p-2.5;
+}
+.parca .estado ul {
+  @apply pl-0;
+}
+.parca .estado ul li {
+  @apply leading-6;
+}
+.parca #box_mg.estado {
+  @apply opacity-100 visible;
+}
+@media (max-width: 1199px) {
+  #map {
+    @apply scale-100;
+  }
+}
+@media (max-width: 991px) {
+  .parceiros .two .parca .estado {
+    @apply block float-none absolute min-w-[160px] max-w-[306px] mx-auto my-[45px] inset-x-0;
+  }
+  .box-mapa {
+    @apply relative table mx-auto my-0 left-[initial] top-0;
+  }
+}
+@media (max-width: 500px) {
+  .box-mapa {
+    @apply hidden;
+  }
+  .parca select {
+    @apply block;
+  }
+}
+.author {
+  @apply absolute z-[2] w-full pt-[30px] pb-[15px] px-[15px] bottom-0;
+  background: rgba(0, 0, 0, 0);
+  background: -moz-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.54) 54%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, rgba(0, 0, 0, 0)),
+    color-stop(54%, rgba(0, 0, 0, 0.54)),
+    color-stop(100%, rgba(0, 0, 0, 1))
+  );
+  background: -webkit-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.54) 54%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: -o-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.54) 54%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.54) 54%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.54) 54%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+}
+.author a {
+  @apply text-base table no-underline text-black font-bold mx-auto my-0;
+}
+.author a span {
+  @apply text-[#red];
 }
