@@ -12,10 +12,11 @@ const Dashboard = () => {
           flexDirection: "column",
         }}
       >
-  <Searchbar/>
-
+        {/* <Searchbar /> */}
+     
         <main className="text-black text-center items-center">
-            <BrazilMap/>
+          <BrazilMap />
+          
         </main>
       </div>
     </>

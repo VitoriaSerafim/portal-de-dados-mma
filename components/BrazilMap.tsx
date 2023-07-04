@@ -1,25 +1,108 @@
 import React from "react";
-import { useEffect, useState } from 'react'
-
+import { useEffect, useState } from "react";
 
 const BrazilMap: React.FC = () => {
-  const [estados, setEstados] = useState();
+  const [data, setdata] = useState<any[]>([]);
+  const [info1, setInfo1] = useState<string>();
+  const [info2, setInfo2] = useState<string>();
+  
 
-  const handleClick = (estado: string) => {
-    alert("Estado clicado: " + estado);
-  };
-function Estados(){
-  fetch("/estados")
-.then(res => res.json())
-.then(data => {
-   setEstados(data)
-})
+  function dataType(){
+    setInfo2('quantidade_especies');
+    setInfo1('nome_familia');
+  }
+function verify(){
+  let element1  =  document.getElementById("familias-checkbox") as HTMLInputElement;
+  let element2  =  document.getElementById("tipos-checkbox") as HTMLInputElement;
+  if(element1.checked){
+    dataType()
+    fetch("/qtd-especie-por-familia")
+    .then((res) => res.json())
+    .then((data) => {
+      setdata(data);
+    });
+   }
+   if(element2.checked){
+    fetch("/qtd-unidades-por-estado")
+    .then((res) => res.json())
+    .then((data) => {
+      setdata(data);
+    });
+   }
 }
 
-  
-  console.log(estados);
+
+  console.log(data);
   return (
     <>
+       <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-green-200 rounded-lg lg:flex dark:bg-lime-700 dark:border-green-600 dark:text-white">
+          <li className="w-full border-b border-green-200 sm:border-b-0 sm:border-r dark:border-green-600">
+            <div className="flex items-center pl-3">
+              <input
+                id="tipos-checkbox"
+                type="checkbox"
+                value=""
+                className="w-4 h-4 text-blue-600 bg-lime-300 border-green-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-lime-300 dark:border-green-500"
+                onChange={()=> verify()}
+              />
+              <label
+                typeof="vue-checkbox-list"
+                className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Tipos Taxonimicos
+              </label>
+            </div>
+          </li>
+          <li className="w-full border-b border-green-200 sm:border-b-0 sm:border-r dark:border-green-600">
+            <div className="flex items-center pl-3">
+              <input
+                id="react-checkbox-list"
+                type="checkbox"
+                value=""
+                className="w-4 h-4 text-blue-600 bg-lime-100 border-green-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-lime-300 dark:border-green-500"
+              />
+              <label
+                typeof="react-checkbox-list"
+                className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+              Situação de Risco
+              </label>
+            </div>
+          </li>
+          <li className="w-full border-b border-green-200 sm:border-b-0 sm:border-r dark:border-green-600">
+            <div className="flex items-center pl-3">
+              <input
+                id="angular-checkbox-list"
+                type="checkbox"
+                value=""
+                className="w-4 h-4 text-blue-600 bg-lime-100 border-green-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-lime-300 dark:border-green-500"
+              />
+              <label
+                typeof="angular-checkbox-list"
+                className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+              Unidades de Conservação
+              </label>
+            </div>
+          </li>
+          <li className="w-full dark:border-green-600">
+            <div className="flex items-center pl-3">
+              <input
+                id="familias-checkbox"
+                type="checkbox"
+                value=""
+                className="w-4 h-4 text-blue-600 bg-lime-100 border-green-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-lime-300 dark:border-green-500"
+                onChange={()=> verify()}
+             />
+              <label
+                typeof="laravel-checkbox-list"
+                className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+               Familias
+              </label>
+            </div>
+          </li>
+        </ul>
       <div className="box-mapa" style={{ marginRight: "55vw" }}>
         <svg
           id="map"
@@ -35,7 +118,6 @@ function Estados(){
               id="state_ba"
               className="state"
               data-state="ba"
-              onClick={() => Estados()}
             >
               <desc id="description_ba">Bahia</desc>
               <path
@@ -680,6 +762,26 @@ function Estados(){
             Tocantins
           </option>
         </select>
+  
+        {data.map((tipo, index) => (
+
+          <div>
+            <input
+              style={{
+                backgroundColor: "lightgray",
+                paddingRight: "15px",
+                width: "250px",
+              }}
+              value={tipo.nome_estado}
+           
+            />
+            <input
+              style={{ backgroundColor: "lightgray", paddingLeft: "5px" }}
+              value={tipo.quantidade}
+             
+            />
+          </div>
+        ))}
       </div>
     </>
   );
