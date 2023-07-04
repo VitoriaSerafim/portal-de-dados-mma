@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Searchbar from "@/components/SearchBar";
+import BrazilMap from "@/components/BrazilMap";
 const Dashboard = () => {
   return (
     <>
@@ -8,16 +9,14 @@ const Dashboard = () => {
         className=" min-h-screen flex items-center justify-center p-24 "
         style={{
           backgroundColor: "#ffffff",
-          backgroundImage: "url(/bg.svg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "100%",
           flexDirection: "column",
         }}
       >
-  <Searchbar/>
-
+        {/* <Searchbar /> */}
+     
         <main className="text-black text-center items-center">
-      
+          <BrazilMap />
+          
         </main>
       </div>
     </>
