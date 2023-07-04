@@ -22,7 +22,7 @@ const BrazilMap: React.FC = () => {
           id="state_ba"
           className="state"
           data-state="ba"
-          onClick={() => handleClick('Bahia')}
+          
         >
           <desc id="description_ba">Bahia</desc>
           <path
