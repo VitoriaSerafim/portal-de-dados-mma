@@ -3,19 +3,13 @@ import { useEffect, useState } from "react";
 
 const BrazilMap: React.FC = () => {
   const [data, setdata] = useState<any[]>([]);
-  const [info1, setInfo1] = useState<string>();
-  const [info2, setInfo2] = useState<string>();
+ 
   
 
-  function dataType(){
-    setInfo2('quantidade_especies');
-    setInfo1('nome_familia');
-  }
 function verify(){
   let element1  =  document.getElementById("familias-checkbox") as HTMLInputElement;
   let element2  =  document.getElementById("tipos-checkbox") as HTMLInputElement;
   if(element1.checked){
-    dataType()
     fetch("/qtd-especie-por-familia")
     .then((res) => res.json())
     .then((data) => {
@@ -684,7 +678,7 @@ function verify(){
             Minas Gerais
           </option>
           <option value="ac" data-stado="ac">
-            Acre
+          bakuhjgdsa
           </option>
           <option value="al" data-stado="al">
             Alagoas
