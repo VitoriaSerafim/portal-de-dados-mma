@@ -3,6 +3,7 @@ const Dashboard = () => {
   const [data, setdata] = useState<any[]>([]);
   const [coluna1, setColuna1] = useState<string>();
   const [coluna2, setColuna2] = useState<string>();
+  const [coluna3, setColuna3] = useState<string>();
 
   function verify() {
     let element1 = document.getElementById(
@@ -19,6 +20,9 @@ const Dashboard = () => {
     ) as HTMLInputElement;
     let element5 = document.getElementById(
       "especies-checkbox"
+    ) as HTMLInputElement;
+    let element6 = document.getElementById(
+      "ameaca-checkbox"
     ) as HTMLInputElement;
 
     if (element1.checked) {
@@ -61,6 +65,16 @@ const Dashboard = () => {
       setColuna1("Situação")
       setColuna2("Quantidade de Especies")
       fetch("/qtd-animais-em-risco")
+        .then((res) => res.json())
+        .then((data) => {
+          setdata(data);
+        });
+    }
+    else if (element6.checked) {
+      setColuna1("Grupo Taxonômico")
+      setColuna2("Categoria de Ameaça")
+      setColuna3("Quantidade")
+      fetch("/risco-grupo-taxonomico")
         .then((res) => res.json())
         .then((data) => {
           setdata(data);
@@ -152,7 +166,7 @@ const Dashboard = () => {
                 </label>
               </div>
             </li>
-            <li className="w-full dark:border-green-600">
+            <li className="w-full border-b border-green-200 sm:border-b-0 sm:border-r dark:border-green-600">
               <div className="flex items-center pl-3">
                 <input
                   id="especies-checkbox"
@@ -170,6 +184,24 @@ const Dashboard = () => {
                 </label>
               </div>
             </li>
+            <li className="w-full dark:border-green-600">
+              <div className="flex items-center pl-3">
+                <input
+                  id="ameaca-checkbox"
+                  type="radio"
+                  name="Radio"
+                  value=""
+                  className="w-4 h-4 text-blue-600 bg-lime-100 border-green-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-lime-300 dark:border-green-500"
+                  onClick={()=> verify()}
+                />
+                <label
+                  typeof="laravel-checkbox-list"
+                  className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Ameça por grupo Taxonômico
+                </label>
+              </div>
+            </li>
           </ul>
 
         {/* Tabela com dados */}
@@ -179,6 +211,10 @@ const Dashboard = () => {
             <tr>
               <th>{coluna1}</th>
               <th>{coluna2}</th>
+              {coluna1 === "Grupo Taxonômico" ?
+               <th>{coluna3}</th>
+               : ''
+            }
             </tr>
           </thead>
           {data.map((tipo, index) => (
@@ -225,6 +261,15 @@ const Dashboard = () => {
          <>
          </>
          }
+          {coluna1 === "Grupo Taxonômico" ? 
+            <><td>{tipo.nome_taxonomico}</td>
+            <td>{tipo.categoria_de_ameaça}</td>
+            <td>{tipo.quantidade}</td>
+            </>
+         : 
+         <>
+         </>
+         }
             </tr>
           </tbody>
             ))}
@@ -234,9 +279,8 @@ const Dashboard = () => {
           {coluna1 === "Situação" ? 
             <p style={{marginLeft:'20vw',textAlign:'left'}}> Legenda: <br/>
             Em Perigo (EN) <br/>  
-            Criticamente em Perigo (CR) <br/> 
             Vulnerável (VU)<br/>
-            Criticamente em Perigo (CR)(PEX)<br/> 
+            Criticamente em Perigo - provavelmente extinto (CR)(PEX)<br/> 
             Extinta (EX)<br/>
             Criticamente Em Perigo (CR)<br/> 
             Extinta na Natureza (EW)<br/>
