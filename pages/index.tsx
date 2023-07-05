@@ -13,6 +13,7 @@ const HomePage = () => {
           flexDirection: "column",
         }}
       >
+        
         <Header />
         <Head>
           <title>Portal de Dados - Ministério do Meio Ambiente</title>
@@ -34,10 +35,11 @@ const HomePage = () => {
           <div className="flex items-center justify-center">
             <img src="/header-animal.svg"></img>
           </div>
-          <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl mt-24">
+          <h2 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-green-500 to-yellow-400 ">
             {" "}
             Quem somos?
           </h2>
+          <br/>
           <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
             {" "}
             Somos um grupo de estudantes de computação da Universidade Federal
@@ -49,10 +51,12 @@ const HomePage = () => {
             destacando a importância de proteger a rica biodiversidade
             brasileira.
           </p>
-          <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl">
+          <h2 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-green-500 to-yellow-400 ">
             {" "}
+          
             Objetivos
           </h2>
+          <br/>
           <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
             {" "}
             Nosso objetivo é destacar as iniciativas de preservação em andamento
@@ -62,29 +66,45 @@ const HomePage = () => {
             paixão pela computação com nosso compromisso com a preservação
             ambiental.
           </p>
-          <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl">
-            {" "}
-            Datasets utilizados
+          
+          <h2 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-green-500 to-yellow-400 ">
+             Datasets utilizados
           </h2>
+          <br/>
+          
           <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
             {" "}
             Através dos dados da fauna coletados análises, estudos de caso e
             notícias, pretendemos despertar o interesse do público e incentivar
             ações em prol da conservação da fauna. Referencia para os datasets
-            utilizados:<br/>
+            utilizados:<br/><br/>
             <br/> 
-            Dados.gov:<br/> 
-            [Instituto Chico Mendes de Conservação da Biodiversidade - ICMBio] (https://dados.gov.br/dados/organizacoes/visualizar/instituto-chico-mendes-de-conservacao-da-biodiversidade-icmbio)
+            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-green-600 " >
+            {" "}
+              Dados.gov:
+            </h2>
+            <br/>
+            
+            <a href ="https://dados.gov.br/dados/conjuntos-dados/especies-da-fauna-em-unidades-de-conservacao" target ="_blank">Especies da Fauna em Unidades de Conservação Federais</a>
+            
             <br/>
             <br/>
-            https://dados.gov.br/dados/conjuntos-dados/especies-da-fauna-em-unidades-de-conservacao
-            # Portal de Dados Abertos Organização: [Ministério do Meio
-            Ambiente](https://dados.mma.gov.br/organization/ministerio-do-meio-ambiente)
+            <a href = "https://dados.gov.br/dados/organizacoes/visualizar/instituto-chico-mendes-de-conservacao-da-biodiversidade-icmbio" target="_blank">Instituto Chico Mendes de Conservação da Biodiversidade - ICMBio </a>
             <br/>
-            Dado:
-            https://dados.mma.gov.br/dataset/especies-ameacadas/resource/544f9312-d4c6-4d12-b6ac-51bf3039bbb7
+            <br/> 
+            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-green-600 ">
+            {" "}
+              Portal de Dados Abertos:
+            </h2>
+            <br/>
+            <a href = "https://dados.mma.gov.br/dataset/especies-ameacadas/resource/544f9312-d4c6-4d12-b6ac-51bf3039bbb7" target="_blank">Especies Ameaçadas</a>
+            <br/>
+            <br/>
+            
+            <a href = "https://dados.mma.gov.br/organization/ministerio-do-meio-ambiente" target="_blank">Ministério do Meio Ambiente</a>
           </p>
           <p style={{fontSize:'32px', color:'lime'}}> Equipe do Animal Crossing</p>
+          
         </main>
       </div>
     </>
