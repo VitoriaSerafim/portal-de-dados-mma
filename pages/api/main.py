@@ -19,23 +19,23 @@ def index():
     return 'Bem-vindo à página principal!'
 
 # http://127.0.0.1:5000/estados
-@app.route('/estados', methods=['GET']) #querry 3
-def get_estados():
+@app.route('/qtd-animais-em-risco', methods=['GET']) #querry 3
+# Exibe o estado e a quantidade de animais nativos desse estado
+def get_qtd_animais():
     cur = mysql.connection.cursor()
-    cur.execute("""SELECT estado.sigla, COUNT(eh_nativo_de.fk_especie_nome_cientifico) AS total_animais_nativos 
-FROM estado
-LEFT JOIN eh_nativo_de ON estado.sigla = eh_nativo_de.fk_estado_sigla
-GROUP BY estado.sigla""")
+    cur.execute("""select situacao, count(nome_cientifico) as total
+from categoria_de_ameaca 
+join especie on id_categoria=fk_categoria_de_ameaca_id_categoria group by id_categoria order by total desc;""")
     data = cur.fetchall()
     cur.close()
     
     # Retorna os estados como JSON
-    estados = [{'sigla': row[0], 'total_animais_nativos': row[1]} for row in data]
+    estados = [{'situacao': row[0], 'total': row[1]} for row in data]
     return jsonify(estados)
 
 
 # http://127.0.0.1:5000/tipos-taxonimicos
-@app.route('/tipos-taxonimicos', methods=['GET']) #querry 1
+@app.route('/tipos-taxonomicos', methods=['GET']) #querry 1
 def get_especie_tipo():
     cur = mysql.connection.cursor()
 
@@ -53,7 +53,7 @@ GROUP BY grupo_taxonomico.nome_taxonomico;""")
     return jsonify(especie)
 
 # http://127.0.0.1:5000/qtd-unidades-por-estado
-@app.route('/qtd-unidades-por-estado', methods=['GET'])
+@app.route('/qtd-unidades-por-estado', methods=['GET']) #query 4
 def get_unidades_estados():
     cur = mysql.connection.cursor()
     cur.execute("""SELECT estado.nome_estado, COUNT(unidade_de_conservacao.id_unidade) AS quantidade
@@ -131,7 +131,7 @@ FROM estado inner join eh_nativa_de on fk_estado_sigla=sigla group by sigla havi
 def get_grupo_taxonomico():
     cur = mysql.connection.cursor()
 
-    # mostra a quantidade de especies nativas de cada estado, ordenando em ordem decrescente, mostrando apenas o top 10 estados com maior quantidade de especies
+    # mostra o nome taxomico, sua situação de risco e a quantidade de especies que estão nesse grupo taxonomico e nessa categoria de risco
     cur.execute("""SELECT grupo_taxonomico.nome_taxonomico, categoria_de_ameaca.situacao, COUNT(*) AS quantidade
 FROM grupo_taxonomico
 JOIN especie ON grupo_taxonomico.id_grupo = especie.fk_grupo_taxonomico_id_grupo
