@@ -72,7 +72,7 @@ const HomePage = () => {
           </h2>
           <br/>
           
-          <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
+          <div className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
             {" "}
             Através dos dados da fauna coletados análises, estudos de caso e
             notícias, pretendemos despertar o interesse do público e incentivar
@@ -102,7 +102,7 @@ const HomePage = () => {
             <br/>
             
             <a href = "https://dados.mma.gov.br/organization/ministerio-do-meio-ambiente" target="_blank">Ministério do Meio Ambiente</a>
-          </p>
+          </div>
           <p style={{fontSize:'32px', color:'lime'}}> Equipe do Animal Crossing</p>
           
         </main>
