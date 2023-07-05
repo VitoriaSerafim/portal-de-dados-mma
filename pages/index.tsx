@@ -34,7 +34,57 @@ const HomePage = () => {
           <div className="flex items-center justify-center">
             <img src="/header-animal.svg"></img>
           </div>
-
+          <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl mt-24">
+            {" "}
+            Quem somos?
+          </h2>
+          <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
+            {" "}
+            Somos um grupo de estudantes de computação da Universidade Federal
+            do Rio de Janeiro (UFRJ), apaixonados pela preservação do meio
+            ambiente e comprometidos em aumentar a conscientização sobre a crise
+            da extinção animal no Brasil. Nessa página, buscamos compartilhar
+            informações valiosas e atualizadas sobre medidas de conservação e
+            características das espécies ameaçadas de extinção no nosso país,
+            destacando a importância de proteger a rica biodiversidade
+            brasileira.
+          </p>
+          <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl">
+            {" "}
+            Objetivos
+          </h2>
+          <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
+            {" "}
+            Nosso objetivo é destacar as iniciativas de preservação em andamento
+            relacionadas à proteção animal e os esforços de pesquisa científica
+            para a conservação. Acreditamos que a tecnologia desempenha um papel
+            fundamental na divulgação e conscientização. Por isso, unimos nossa
+            paixão pela computação com nosso compromisso com a preservação
+            ambiental.
+          </p>
+          <h2 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-black md:text-5xl lg:text-6xl">
+            {" "}
+            Datasets utilizados
+          </h2>
+          <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-justify">
+            {" "}
+            Através dos dados da fauna coletados análises, estudos de caso e
+            notícias, pretendemos despertar o interesse do público e incentivar
+            ações em prol da conservação da fauna. Referencia para os datasets
+            utilizados:<br/>
+            <br/> 
+            Dados.gov:<br/> 
+            [Instituto Chico Mendes de Conservação da Biodiversidade - ICMBio] (https://dados.gov.br/dados/organizacoes/visualizar/instituto-chico-mendes-de-conservacao-da-biodiversidade-icmbio)
+            <br/>
+            <br/>
+            https://dados.gov.br/dados/conjuntos-dados/especies-da-fauna-em-unidades-de-conservacao
+            # Portal de Dados Abertos Organização: [Ministério do Meio
+            Ambiente](https://dados.mma.gov.br/organization/ministerio-do-meio-ambiente)
+            <br/>
+            Dado:
+            https://dados.mma.gov.br/dataset/especies-ameacadas/resource/544f9312-d4c6-4d12-b6ac-51bf3039bbb7
+          </p>
+          <p style={{fontSize:'32px', color:'lime'}}> Equipe do Animal Crossing</p>
         </main>
       </div>
     </>
