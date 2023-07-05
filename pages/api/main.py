@@ -162,6 +162,7 @@ GROUP BY estado.sigla;""")
     # Retorna os estados como JSON
     especies_nativas_estado = [{'nome_estado': row[0], 'tot_especie_estado': row[1]} for row in data]
     return jsonify(especies_nativas_estado)
+
 # http://127.0.0.1:5000/risco-grupo-taxonomico
 @app.route('/risco-grupo-taxonomico', methods=['GET']) #querry 2
 def get_grupo_taxonomico():
@@ -182,8 +183,20 @@ GROUP BY grupo_taxonomico.nome_taxonomico, categoria_de_ameaca.situacao;""")
     grupo_taxonomico = [{'nome_taxonomico': row[0], 'categoria_de_ameaça': row[1], 'quantidade':row[2]} for row in data]
     return jsonify(grupo_taxonomico)
 
+# http://127.0.0.1:5000/sem-nome-popular
+@app.route('/sem-nome-popular', methods=['GET']) #querry 2
+def get_especie_sem_nome():
+    cur = mysql.connection.cursor()
 
-
+    cur.execute("""select count(nome_cientifico) from especie left join apelidada_por on nome_cientifico=fk_especie_nome_cientifico
+where fk_especie_nome_cientifico is null;""")
+    
+    data = cur.fetchall()
+    cur.close()
+    
+    # Retorna os estados como JSON
+    especie_sem_nome = [{'nome_cientifico': row[0]} for row in data]
+    return jsonify(especie_sem_nome)
 
 if __name__ == '__main__':
     app.run()
