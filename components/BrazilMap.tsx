@@ -2,9 +2,93 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 const BrazilMap: React.FC = () => {
-  
+  const [data, setdata] = useState<any[]>([]);
+  const [value, setValue] = useState<string>();
+  const [estado, setEstado] = useState<string>();
+
+  function verify(estado: string) {
+    setEstado(estado)
+    let element1 = document.getElementById(
+      "unidades-checkbox"
+    ) as HTMLInputElement;
+    let element2 = document.getElementById(
+      "nativas-checkbox"
+    ) as HTMLInputElement;
+
+    if (element1.checked) {
+      fetch("/qtd-unidades-por-estado")
+        .then((res) => res.json())
+        .then((data) => {
+          setdata(data);
+        });
+
+      var info: string[];
+      info = data?.filter(function (data) {
+        if (data?.nome_estado == estado) return setValue(data.quantidade);
+      });
+
+    } else if (element2.checked) {
+      fetch("/qtd_especies_nativas")
+        .then((res) => res.json())
+        .then((data) => {
+          setdata(data);
+        });
+        var info: string[];
+        info = data?.filter(function (data) {
+          if (data?.nome_estado == estado) return setValue(data.tot_especie_estado);
+        });
+        console.log(data)
+    }
+  }
+
+
   return (
     <>
+      <main
+        className="text-black text-center items-center"
+        style={{ width: "100vw" }}
+      >
+        <ul
+          className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-green-200 rounded-lg lg:flex dark:bg-lime-700 dark:border-green-600 dark:text-white gap-2"
+          style={{ marginLeft: "30px", width: "95vw" }}
+        >
+          <li className="w-full border-b border-green-200 sm:border-b-0 sm:border-r dark:border-green-600">
+            <div className="flex items-center pl-3">
+              <input
+                id="unidades-checkbox"
+                type="radio"
+                name="Radio"
+                value=""
+                className="w-4 h-4 text-blue-600 bg-lime-300 border-green-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-lime-300 dark:border-green-500"
+              />
+              <label
+                typeof="vue-checkbox-list"
+                className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Unidades de conservação
+              </label>
+            </div>
+          </li>
+          <li className="w-full border-b border-green-200 sm:border-b-0 sm:border-r dark:border-green-600">
+            <div className="flex items-center pl-3">
+              <input
+                id="nativas-checkbox"
+                type="radio"
+                name="Radio"
+                value=""
+                className="w-4 h-4 text-blue-600 bg-lime-100 border-green-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-lime-300 dark:border-green-500"
+              />
+              <label
+                typeof="react-checkbox-list"
+                className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Quantidades de Espécies Nativas
+              </label>
+            </div>
+          </li>
+        </ul>
+
+      </main>
       <div className="box-mapa" style={{ marginRight: "55vw" }}>
         <svg
           id="map"
@@ -20,6 +104,7 @@ const BrazilMap: React.FC = () => {
               id="state_ba"
               className="state"
               data-state="ba"
+              onClick={() => verify("Bahia")}
             >
               <desc id="description_ba">Bahia</desc>
               <path
@@ -39,7 +124,13 @@ const BrazilMap: React.FC = () => {
                 Bahia
               </text>
             </a>
-            <a href="#" id="state_se" className="state" data-state="se">
+            <a
+              href="#"
+              id="state_se"
+              className="state"
+              data-state="se"
+              onClick={() => verify("Sergipe")}
+            >
               <desc id="description_se">Sergipe</desc>
               <path
                 id="shape_se"
@@ -65,7 +156,13 @@ const BrazilMap: React.FC = () => {
                 Sergipe
               </text>
             </a>
-            <a href="#" id="state_pe" className="state" data-state="pe">
+            <a
+              href="#"
+              id="state_pe"
+              className="state"
+              data-state="pe"
+              onClick={() => verify("Pernambuco")}
+            >
               <desc id="description_pe">Pernambuco</desc>
               <path
                 id="shape_pe"
@@ -84,7 +181,13 @@ const BrazilMap: React.FC = () => {
                 Pernambuco
               </text>
             </a>
-            <a href="#" id="state_al" className="state" data-state="al">
+            <a
+              href="#"
+              id="state_al"
+              className="state"
+              data-state="al"
+              onClick={() => verify("Alagoas")}
+            >
               <desc id="description_al">Alagoas</desc>
               <path
                 id="shape_al"
@@ -110,7 +213,7 @@ const BrazilMap: React.FC = () => {
                 Alagoas
               </text>
             </a>
-            <a href="#" id="state_am" className="state" data-state="am">
+            <a href="#" id="state_am" className="state" data-state="am"  onClick={() => verify("Amazonas")} >
               <desc id="description_am">Amazonas</desc>
               <path
                 id="shape_am"
@@ -129,7 +232,7 @@ const BrazilMap: React.FC = () => {
                 Amazonas
               </text>
             </a>
-            <a href="#" id="state_pa" className="state" data-state="pa">
+            <a href="#" id="state_pa" className="state" data-state="pa" onClick={() => verify("Pará")}>
               <desc id="description_pa">Pará</desc>
               <path
                 id="shape_pa"
@@ -148,7 +251,7 @@ const BrazilMap: React.FC = () => {
                 Pará
               </text>
             </a>
-            <a href="#" id="state_mt" className="state" data-state="mt">
+            <a href="#" id="state_mt" className="state" data-state="mt" onClick={() => verify("Mato Grosso")}>
               <desc id="description_mt">Mato Grosso</desc>
               <path
                 id="shape_mt"
@@ -167,7 +270,7 @@ const BrazilMap: React.FC = () => {
                 Mato Grosso
               </text>
             </a>
-            <a href="#" id="state_ro" className="state" data-state="ro">
+            <a href="#" id="state_ro" className="state" data-state="ro" onClick={() => verify("Rondônia")}>
               <desc id="description_ro">Rondônia</desc>
               <path
                 id="shape_ro"
@@ -186,7 +289,7 @@ const BrazilMap: React.FC = () => {
                 Rondônia
               </text>
             </a>
-            <a href="#" id="state_ac" className="state" data-state="ac">
+            <a href="#" id="state_ac" className="state" data-state="ac" onClick={() => verify("Acre")}>
               <desc id="description_ac">Acre</desc>
               <path
                 id="shape_ac"
@@ -205,7 +308,7 @@ const BrazilMap: React.FC = () => {
                 Acre
               </text>
             </a>
-            <a href="#" id="state_ap" className="state" data-state="ap">
+            <a href="#" id="state_ap" className="state" data-state="ap" onClick={() => verify("Amapá")}>
               <desc id="description_ap">Amapá</desc>
               <path
                 id="shape_ap"
@@ -224,7 +327,7 @@ const BrazilMap: React.FC = () => {
                 Amapá
               </text>
             </a>
-            <a href="#" id="state_rj" className="state" data-state="rj">
+            <a href="#" id="state_rj" className="state" data-state="rj" onClick={() => verify("Rio de Janeiro")}>
               <desc id="description_rj">Rio de Janeiro</desc>
               <path
                 id="shape_rj"
@@ -250,7 +353,7 @@ const BrazilMap: React.FC = () => {
                 Rio de Janeiro
               </text>
             </a>
-            <a href="#" id="state_rs" className="state" data-state="rs">
+            <a href="#" id="state_rs" className="state" data-state="rs" onClick={() => verify("Rio Grande do Sul")}>
               <desc id="description_rs">Rio Grande do Sul</desc>
               <path
                 id="shape_rs"
@@ -269,7 +372,7 @@ const BrazilMap: React.FC = () => {
                 Rio Grande do Sul
               </text>
             </a>
-            <a href="#" id="state_sc" className="state" data-state="sc">
+            <a href="#" id="state_sc" className="state" data-state="sc" onClick={() => verify("Santa Catarina")}>
               <desc id="description_sc">Santa Catarina</desc>
               <path
                 id="shape_sc"
@@ -288,7 +391,7 @@ const BrazilMap: React.FC = () => {
                 Santa Catarina
               </text>
             </a>
-            <a href="#" id="state_pr" className="state" data-state="pr">
+            <a href="#" id="state_pr" className="state" data-state="pr" onClick={() => verify("Paraná")}>
               <desc id="description_pr">Paraná</desc>
               <path
                 id="shape_pr"
@@ -307,7 +410,7 @@ const BrazilMap: React.FC = () => {
                 Paraná
               </text>
             </a>
-            <a href="#" id="state_sp" className="state" data-state="sp">
+            <a href="#" id="state_sp" className="state" data-state="sp" onClick={() => verify("São Paulo")}>
               <desc id="description_sp">São Paulo</desc>
               <path
                 id="shape_sp"
@@ -326,7 +429,7 @@ const BrazilMap: React.FC = () => {
                 São Paulo
               </text>
             </a>
-            <a href="#" id="state_ms" className="state" data-state="ms">
+            <a href="#" id="state_ms" className="state" data-state="ms" onClick={() => verify("Mato Grosso do Sul")}>
               <desc id="description_ms">Mato Grosso do Sul</desc>
               <path
                 id="shape_ms"
@@ -345,7 +448,7 @@ const BrazilMap: React.FC = () => {
                 Mato Grosso do Sul
               </text>
             </a>
-            <a href="#" id="state_go" className="state" data-state="go">
+            <a href="#" id="state_go" className="state" data-state="go" onClick={() => verify("Goiás")}>
               <desc id="description_go">Goiás</desc>
               <path
                 id="shape_go"
@@ -364,7 +467,7 @@ const BrazilMap: React.FC = () => {
                 Goiás
               </text>
             </a>
-            <a href="#" id="state_mg" className="state" data-state="mg">
+            <a href="#" id="state_mg" className="state" data-state="mg" onClick={() => verify("Minas Gerais")}>
               <desc id="description_mg">Minas Gerais</desc>
               <path
                 id="shape_mg"
@@ -383,7 +486,7 @@ const BrazilMap: React.FC = () => {
                 Minas Gerais
               </text>
             </a>
-            <a href="#" id="state_es" className="state" data-state="es">
+            <a href="#" id="state_es" className="state" data-state="es" onClick={() => verify("Espírito Santo")}>
               <desc id="description_es">Espírito Santo</desc>
               <path
                 id="shape_es"
@@ -409,7 +512,7 @@ const BrazilMap: React.FC = () => {
                 Espírito Santo
               </text>
             </a>
-            <a href="#" id="state_pi" className="state" data-state="pi">
+            <a href="#" id="state_pi" className="state" data-state="pi" onClick={() => verify("Piauí")}>
               <desc id="description_pi">Piauí</desc>
               <path
                 id="shape_pi"
@@ -428,7 +531,7 @@ const BrazilMap: React.FC = () => {
                 Piauí
               </text>
             </a>
-            <a href="#" id="state_ce" className="state" data-state="ce">
+            <a href="#" id="state_ce" className="state" data-state="ce" onClick={() => verify("Ceará")}>
               <desc id="description_ce">Ceará</desc>
               <path
                 id="shape_ce"
@@ -447,7 +550,7 @@ const BrazilMap: React.FC = () => {
                 Ceará
               </text>
             </a>
-            <a href="#" id="state_rr" className="state" data-state="rr">
+            <a href="#" id="state_rr" className="state" data-state="rr" onClick={() => verify("Roraima")}>
               <desc id="description_rr">Roraima</desc>
               <path
                 id="shape_rr"
@@ -466,7 +569,7 @@ const BrazilMap: React.FC = () => {
                 Roraima
               </text>
             </a>
-            <a href="#" id="state_to" className="state" data-state="to">
+            <a href="#" id="state_to" className="state" data-state="to" onClick={() => verify("Tocantins")}>
               <desc id="description_to">Tocantins</desc>
               <path
                 id="shape_to"
@@ -485,7 +588,7 @@ const BrazilMap: React.FC = () => {
                 Tocantins
               </text>
             </a>
-            <a href="#" id="state_ma" className="state" data-state="ma">
+            <a href="#" id="state_ma" className="state" data-state="ma" onClick={() => verify("Maranhão")}>
               <desc id="description_ma">Maranhão</desc>
               <path
                 id="shape_ma"
@@ -504,7 +607,7 @@ const BrazilMap: React.FC = () => {
                 Maranhão
               </text>
             </a>
-            <a href="#" id="state_rn" className="state" data-state="rn">
+            <a href="#" id="state_rn" className="state" data-state="rn" onClick={() => verify("Rio Grande do Norte")}>
               <desc id="description_rn">Rio Grande do Norte</desc>
               <path
                 id="shape_rn"
@@ -530,7 +633,7 @@ const BrazilMap: React.FC = () => {
                 Rio Grande do Norte
               </text>
             </a>
-            <a href="#" id="state_pb" className="state" data-state="pb">
+            <a href="#" id="state_pb" className="state" data-state="pb" onClick={() => verify("Paraíba")}>
               <desc id="description_pb">Paraíba</desc>
               <path
                 id="shape_pb"
@@ -556,7 +659,7 @@ const BrazilMap: React.FC = () => {
                 Paraíba
               </text>
             </a>
-            <a href="#" id="state_df" className="state" data-state="df">
+            <a href="#" id="state_df" className="state" data-state="df" onClick={() => verify("Distrito Federal")}>
               <desc id="description_df">Distrito Federal</desc>
               <circle
                 id="icon_df"
@@ -580,13 +683,16 @@ const BrazilMap: React.FC = () => {
           </g>
         </svg>
       </div>
+      <div>
+        <p style={{color:"black", fontSize:'56px', position:'absolute', marginTop:'-250px', fontWeight:'bold'}}> Quantidade: {value}</p>
+      </div>
       <div className="parca">
         <select name="select" id="seletory">
           <option value="mg" data-stado="mg">
             Minas Gerais
           </option>
           <option value="ac" data-stado="ac">
-          bakuhjgdsa
+            bakuhjgdsa
           </option>
           <option value="al" data-stado="al">
             Alagoas

@@ -110,6 +110,24 @@ FROM bioma;""")
     unidades_bioma = [{'nome_bioma': row[0], 'quantidade': row[1]} for row in data]
     return jsonify(unidades_bioma)
 
+@app.route('/qtd-unidades-por-estado', methods=['GET']) # querry 6
+def get_unidade_estado():
+    cur = mysql.connection.cursor()
+
+  # QUERY 4 - Exibe o estado e a quantidade de unidades de conservação desse estado
+    cur.execute("""SELECT estado.nome_estado, COUNT(unidade_de_conservacao.id_unidade) AS quantidade
+FROM estado
+INNER JOIN pertence ON estado.sigla = pertence.fk_estado_sigla
+INNER JOIN unidade_de_conservacao ON pertence.fk_unidade_de_conservacao_id_unidade = unidade_de_conservacao.id_unidade
+GROUP BY estado.nome_estado;""")
+    
+    data = cur.fetchall()
+    cur.close()
+    
+    # Retorna os estados como JSON
+    unidades_estado = [{'nome_estado': row[0], 'quantidade': row[1]} for row in data]
+    return jsonify(unidades_estado)
+
 # http://127.0.0.1:5000/qtd_especie_nativa
 @app.route('/qtd_especie_nativa', methods=['GET']) #querry 7
 def get_especie_nativa():
@@ -126,6 +144,24 @@ FROM estado inner join eh_nativa_de on fk_estado_sigla=sigla group by sigla havi
     especie_nativa_estado = [{'sigla': row[0], 'tot_especie_estado': row[1]} for row in data]
     return jsonify(especie_nativa_estado)
 
+
+# http://127.0.0.1:5000/qtd_especie_nativa
+@app.route('/qtd_especies_nativas', methods=['GET']) #querry 7
+def get_especies_nativas():
+    cur = mysql.connection.cursor()
+
+    # mostra a quantidade de especies nativas de cada estado, ordenando em ordem decrescente, mostrando apenas o top 10 estados com maior quantidade de especies
+    cur.execute("""SELECT estado.nome_estado, COUNT(eh_nativa_de.fk_especie_nome_cientifico) AS total_animais_nativos
+FROM estado
+LEFT JOIN eh_nativa_de ON estado.sigla = eh_nativa_de.fk_estado_sigla
+GROUP BY estado.sigla;""")
+    
+    data = cur.fetchall()
+    cur.close()
+    
+    # Retorna os estados como JSON
+    especies_nativas_estado = [{'nome_estado': row[0], 'tot_especie_estado': row[1]} for row in data]
+    return jsonify(especies_nativas_estado)
 # http://127.0.0.1:5000/risco-grupo-taxonomico
 @app.route('/risco-grupo-taxonomico', methods=['GET']) #querry 2
 def get_grupo_taxonomico():
