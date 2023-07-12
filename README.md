@@ -1,4 +1,4 @@
-## Portal Animal Crossing
+## Portal Animal Crossing :tiger:
 
 <h4>Este repositório é destinado ao desenvolvimento de um portal para análise e visualização de dados da Fauna Brasileira </h4>
 
